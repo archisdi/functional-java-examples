@@ -2,7 +2,7 @@ package com.practice;
 
 import java.util.List;
 
-public class FP01Structured {
+public class FP01 {
     public static void main(String[] args) {
         List<Integer> numbers = List.of(1,2,3,4,5,54,33,2,332);
 //        printNumberListStructured(numbers);
