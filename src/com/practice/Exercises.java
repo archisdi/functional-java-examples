@@ -1,12 +1,13 @@
 package com.practice;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class Exercises {
     public static void main(String[] args) {
         // * 1
         List<Integer> numbers = List.of(1,2,3,4,5,6,7,8,9);
-        PrintOdd(numbers);
+        PrintOdd(numbers, i -> i * i * i);
 
         // * 2
         List<String> courses = List.of("Spring", "Boot", "Is", "Cool");
@@ -21,10 +22,10 @@ public class Exercises {
                 .forEach(System.out::println);
     }
 
-    private static void PrintOdd(List<Integer> numbers) {
+    private static void PrintOdd(List<Integer> numbers, Function<Integer, Integer> mapper) {
         numbers.stream()
                 .filter(item -> item % 2 != 0)
-                .map(i -> i * i * i)
+                .map(mapper)
                 .forEach(System.out::println);
     }
 }

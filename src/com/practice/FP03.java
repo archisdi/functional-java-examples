@@ -1,10 +1,8 @@
 package com.practice;
 
 import java.util.List;
-import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.Random;
+import java.util.function.*;
 
 public class FP03 {
     public static void main(String[] args) {
@@ -28,6 +26,7 @@ public class FP03 {
             }
         };
 
+        // takes one input and not return anything
         // Consumer<Integer> print = System.out::println;
         Consumer<Integer> print = new Consumer<Integer>() {
             @Override
@@ -36,6 +35,7 @@ public class FP03 {
             }
         };
 
+        // takes two input with same type and returns a value with also the same type
         // BinaryOperator<Integer> sum = Integer::sum;
         BinaryOperator<Integer> sum = new BinaryOperator<Integer>() {
             @Override
@@ -44,12 +44,48 @@ public class FP03 {
             }
         };
 
-        numbers.stream()
-                .filter(isEven)
-                .map(squared)
-                .forEach(print);
+        // No input and return something
+        // Supplier<Integer> randomInteger = () -> new Random().nextInt(100);
+        Supplier<Integer> randomInteger = new Supplier<Integer>() {
+            @Override
+            public Integer get() {
+                return new Random().nextInt(100);
+            }
+        };
+        System.out.println(randomInteger.get());
 
+        // takes one input and returns a value with the same type
+        // UnaryOperator<Integer> multiple = x -> x * 2;
+        UnaryOperator<Integer> multiple = new UnaryOperator<Integer>() {
+            @Override
+            public Integer apply(Integer integer) {
+                return integer * 3;
+            }
+        };
+        System.out.println(multiple.apply(2));
+
+        // takes two params and returns boolean
+        BiPredicate<Integer, String> biPredicate = (nbr, str) -> {
+            return nbr < 10 && str.length() > 5;
+        };
+        System.out.println(biPredicate.test(5, "archie isdiningrat"));
+
+        // takes two params and return a defined type
+        BiFunction<Integer, String, Boolean> biFunction = (nbr, str) -> {
+            return nbr < 10 && str.length() > 5;
+        };
+        System.out.println(biFunction.apply(5, "archie isdiningrat"));
+
+        // takes two params and return void
+        BiConsumer<Integer, String> biConsumer = (nbr, str) -> {
+            System.out.println(nbr < 10 && str.length() > 5);
+        };
+        biConsumer.accept(5, "archie isdiningrat");
+
+        numbers.stream().filter(isEven).map(squared).forEach(print);
         Integer reduce = numbers.stream().reduce(0, sum);
         System.out.println(reduce);
+
+        // * etc in java.util.function
     }
 }
