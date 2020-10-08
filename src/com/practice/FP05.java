@@ -2,6 +2,7 @@ package com.practice;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 class Course {
@@ -133,5 +134,10 @@ public class FP05 {
                 new Random().nextInt(10),
                 new Random().nextInt(100)
         );
+    }
+
+    // * Higher order function, a function that return a function
+    public static Predicate<Course> CourseScorePredicate(int cutoff) {
+        return course -> course.getScore() > cutoff;
     }
 }
